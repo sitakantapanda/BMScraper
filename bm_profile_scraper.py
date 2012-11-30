@@ -1,16 +1,20 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest, time, re
+import yaml
 
 class BMScraper(object):
 	def __init__(self):
-		self.verificationErrors = []
 		self.driver = webdriver.Firefox()
-
+		with open('./config.yml', 'r') as config_file:
+			self.config = yaml.load(config_file.read())
+		if self.config == None:
+			raise Exception('Config', 'File Not Found')
+	
 	def downloadBMData(self):
 		self.driver.get("http://www.bharatmatrimony.com/")
 		self.login()
-		self.search()		
+		self.search()
 	
 	def login(self):
 		# login_txt = self.driver.find_elements_by_xpath("//div[@id='topnav']")
@@ -18,9 +22,9 @@ class BMScraper(object):
 		login_txt = self.driver.find_element_by_id("ID")
 		pwd_txt = self.driver.find_element_by_id("PASSWORD")
 		login_btn.click()
-		login_txt.send_keys("tejaswi.yvs@gmail.com")
+		login_txt.send_keys(self.config["email"])
 		pwd_txt.click()
-		pwd_txt.send_keys("ghottip0")
+		pwd_txt.send_keys(self.config["password"])
 		print login_txt.text + pwd_txt.text
 		login_txt.submit()
 	
