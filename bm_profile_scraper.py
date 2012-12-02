@@ -25,7 +25,6 @@ class BMScraper(object):
 		login_txt.send_keys(self.config["email"])
 		pwd_txt.click()
 		pwd_txt.send_keys(self.config["password"])
-		print login_txt.text + pwd_txt.text
 		login_txt.submit()
 	
 	def search(self):
@@ -34,8 +33,13 @@ class BMScraper(object):
 			skip_to_home.click()
 		search_div = self.driver.find_element_by_id("overbg2")
 		search_button = search_div.find_element_by_xpath("./a[1]").click()
-		age_txt = self.driver.find_element_by_id("STAGE")
-		age_txt.submit()
+		# Liberal filters
+		self.driver.find_element_by_id("ENDAGE").send_keys("40") # Max Age = 40
+		self.driver.find_element_by_id("MARITAL_STATUS0").click() # Marital Status = Any
+		self.driver.find_element_by_id("MOTHERTONGUE_IN").send_keys("Any") # Mother Tongue = Any
+		self.driver.find_element_by_id("EDUCATION_IN").send_keys("Any")
+		self.driver.find_element_by_id("ENDAGE").submit()
+	
 	
 	def stop(self):
 		self.driver.close()
