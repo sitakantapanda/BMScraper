@@ -1,7 +1,5 @@
 *.py[cod]
 
-config.yml
-
 # C extensions
 *.so
 
