@@ -54,9 +54,3 @@ class BMDAL(object):
 		self.cursor.execute("SELECT last_insert_rowid()")
 		text =  self.cursor.fetchone()
 		return text[0]
-
-
-if __name__ == '__main__':
-	dal = BMDAL()
-	params = { "family_values" : "moderate", "ancestral_origin" : "guntur", "fathers_occupation" : "doctor", "mothers_occupation" : "doctor", "number_of_brothers" : "0", "number_of_sisters" : "1", "about_our_family" : "blah" }
-	print dal.insert_family_info(params)
