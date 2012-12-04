@@ -1,3 +1,3 @@
-email: YOUR_EMAIL_HERE
-password: YOURPASSHERE
+email: 'YOUR_EMAIL_HERE'
+password: 'YOUR_PASSWORD_HERE'
 db_name: './db/bharat_matrimony.db'

@@ -4,13 +4,18 @@ import yaml
 class BMDAL(object):
 	def __init__(self):
 		"""docstring for __init__"""
-		with open('./config.yml', 'r') as config_file:
+		with open('./config/config.yml', 'r') as config_file:
 			self.config = yaml.load(config_file.read())
 		if self.config == None:
 			raise Exception('Config', 'File Not Found')
 		self.connection = sqlite3.connect(self.config["db_name"])
 		self.cursor = self.connection.cursor()
 	
+	def insert_id(self, bm_id):
+		query = "INSERT INTO MatrimonyID(bm_id) VALUES('" + bm_id + "')"
+		print query
+		self.execute_query(query)
+ 	
 	def insert_family_info(self, params):		
 		query = "INSERT INTO FamilyInfo(family_values, ancestral_origin, fathers_occupation, mothers_occupation, number_of_brothers, number_of_sisters, about_our_family) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')" % (params["family_values"], params["ancestral_origin"], params["fathers_occupation"], params["mothers_occupation"], params["number_of_brothers"], params["number_of_sisters"], params["about_our_family"])
 		self.execute_query(query)
